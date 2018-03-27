@@ -19,3 +19,7 @@ __pycache__/
 
 #Flask config instance folder
 instance/
+
+#unittest
+.coverage
+htmlcov
