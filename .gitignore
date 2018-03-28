@@ -23,3 +23,6 @@ instance/
 #unittest
 .coverage
 htmlcov
+
+#hero images
+project/static/img/dota/

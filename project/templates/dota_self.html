@@ -1,0 +1,8 @@
+{% include "header.html" %}
+
+{{ matches[1] }} <br>
+{% for match in matches[2] %}
+
+    {% include "dota_display_match.html" %}
+
+{% endfor %}

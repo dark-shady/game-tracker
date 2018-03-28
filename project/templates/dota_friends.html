@@ -1,0 +1,15 @@
+{% include "header.html" %}
+
+
+<table width="75%">
+
+{% for friend_match in friends_matches %}
+
+    {{ friend_match[1] }} <br>
+    {% for match in friend_match[2] %}
+
+        {% include "dota_display_match.html" %}
+
+    {% endfor %}
+
+{% endfor %}
