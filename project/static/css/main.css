@@ -2,6 +2,7 @@
 
 body {
 	background:#1f1f1f;
+	color: #ffffff;
     font-family: 'Open Sans', sans-serif;
 }
 
@@ -135,30 +136,6 @@ h5 {
 	vertical-align:middle;
 }
 
-.show-title{
-    display:inline-block;
-    width:100%;
-    white-space: nowrap;
-    overflow:hidden !important;
-    text-overflow: ellipsis;
-    color: #b2c831;
-
-}
-.show-name{
-    display:inline-block;
-    width:100%;
-    white-space: nowrap;
-    overflow:hidden !important;
-    text-overflow: ellipsis;
-    font-weight:bold;
-}
-.show-time{
-    background-color: red;
-    color: #000000;
-    font-weight:bold;
-
-}
-
 .today-header{
     border-radius:15px;
     height:20px;
@@ -182,16 +159,12 @@ h5 {
 
 }
 
-.weather-thumbnail {
-	max-width:125px;
+table.dota_match_table {
+	width: 75%;
+	border: 1px solid black;
+	margin: 0 auto;
 }
 
-.main-weather{
-	display: inline-block;
-	width:200px;
-	height:260px;
-}
-
-.main-weather-thumbnail{
-	 max-width:160px;
+.dota_match_table td {
+	border: 1px solid black;
 }

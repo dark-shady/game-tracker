@@ -1,7 +1,15 @@
-  <tr>
-    <td><img src="/static/img/dota/hero-icons/{{ match['hero_id'] }}.png"</td>
+
+ <tr bgcolor="{{ loop.cycle('#3d3d3d', '#1f1f1f') }}">
+    <td class="dota_match_table"><img src="/static/img/dota/hero-icons/{{ match['hero_id'] }}.png" width="80"></td>
     <td>{{ match['match_id'] }}</td>
-    <td>{{ match['radiant_win'] }}</td>
+    {% if match['radiant_win'] and match['player_slot'] < 100 %}
+        <td><font color="green">Win</font></td>
+    {% elif not match['radiant_win'] and match['player_slot'] > 100 %}
+        <td><font color="green">Win</font></td>
+    {% else %}
+        <td><font color="red">Loss</font></td>
+    {% endif %}
+
     <td>{{ match['duration'] }}</td>
     <td>{{ match['kills'] }}</td>
     <td>{{ match['deaths'] }}</td>

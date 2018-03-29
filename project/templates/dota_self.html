@@ -1,8 +1,19 @@
 {% include "header.html" %}
-
-{{ matches[1] }} <br>
+<br>
+<table class="dota_match_table">
+<tr>
+    <td width="80">Hero</td>
+    <td>Match ID</td>
+    <td>Radiant win</td>
+    <td>Duration</td>
+    <td>Kills</td>
+    <td>Deaths</td>
+    <td>Assists</td>
+</tr>
 {% for match in matches[2] %}
-
-    {% include "dota_display_match.html" %}
-
+    {% with %}
+        {% set loop_var = loop %}
+        {% include "dota_display_match.html"%}
+    {% endwith %}
 {% endfor %}
+</table>

@@ -2,6 +2,7 @@ import json
 import requests
 from urllib.parse import urljoin
 
+
 class Opendota:
     def __init__(self):
         self.BASE_URL = "https://api.opendota.com/api/"
@@ -12,7 +13,7 @@ class Opendota:
             r = requests.get(urljoin(self.BASE_URL, api_url))
             r.raise_for_status()
         except requests.exceptions.HTTPError as err:
-            print (err)
+            return "HTTPError"
 
         return json.loads(r.text)
 
@@ -24,8 +25,11 @@ class Opendota:
     def get_personaname(self, steam_id):
         return self.make_request("players/{}".format(steam_id))['profile']['personaname']
 
+    def get_hero_icon(hero):
+        pass
 
 '''
+https://dota2api.readthedocs.io/en/latest/responses.html#player-slot
 https://api.opendota.com/api/players/{account_id}/recentMatches
 'assists': 11,
           'cluster': 121,
