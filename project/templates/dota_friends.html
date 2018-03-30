@@ -1,28 +1,56 @@
-{% include "header.html" %}
+{% extends "header.html" %}
 
 
 
 
-
+{% block content %}
+    <!-- Content -->
+    <div class="container">
+        <!-- Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+              <table class="table table-condensed" style="border-collapse:collapse;">
+                  <tbody>
 
 {% for friend_match in friends_matches %}
+                      <tr class='clickable-row' style="cursor:pointer" data-toggle="collapse" data-target=".demo{{ loop.index }}">
+                          <td><a href="{{ friend_match[1]['profileurl'] }}"><img src="{{ friend_match[1]['avatarmedium'] }}">{{ friend_match[1]['personaname'] }}</a></td>
+                          <td>{{ last_game_played(friend_match[2][0]['start_time'], friend_match[2][0]['duration']) }}</td>
+                          <td><a href="#" data-toggle="collapse" data-target=".demo{{ loop.index }}">Expand</a></td>
+                      </tr>
 
-    {{ friend_match[1] }} <br>
-<table class="dota_match_table">
-<tr>
-    <td width="80">Hero</td>
-    <td>Match ID</td>
-    <td>Radiant win</td>
-    <td>Duration</td>
-    <td>Kills</td>
-    <td>Deaths</td>
-    <td>Assists</td>
-</tr>
-    {% for match in friend_match[2] %}
-        {% with %}
-            {% set loop_var = loop %}
-            {% include "dota_display_match.html"%}
-        {% endwith %}
-    {% endfor %}
-</table>
+                      <tr>
+                          <td class="hiddenRow" colspan="4">
+                              <div class="collapse demo{{ loop.index }}">
+                                <table class="dota_match_table">
+                                    <tr>
+                                        <td width="80">Hero</td>
+                                        <td>Match ID</td>
+                                        <td>Radiant win</td>
+                                        <td>Duration</td>
+                                        <td>Kills</td>
+                                        <td>Deaths</td>
+                                        <td>Assists</td>
+                                    </tr>
+                                    {% for match in friend_match[2] %}
+                                        {% with %}
+                                            {% set loop_var = loop %}
+                                            {% include "dota_display_match.html"%}
+                                        {% endwith %}
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+
 {% endfor %}
+
+
+                  </tbody>
+              </table>
+            </div>
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+
+
+{% endblock %}

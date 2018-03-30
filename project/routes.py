@@ -8,11 +8,20 @@ import pprint
 pp = pprint.PrettyPrinter(indent=4)
 YOUR_STEAM_ID = 86904765
 
-dota_friends = {'darkshady':86904765, 'lopi-':50122249 }
+dota_friends_dict = {'darkshady':86904765, 'lopi-':50122249, 'face!':879272,  'remix':42951414, 'rekyks':293127408}
 #####################END REMOVE##################
 
 # Initialize API wrappers
 opendota_api = Opendota()
+
+
+# Add functions to JINJA templates
+app.add_template_global(opendota_api.last_game_played, name='last_game_played')
+
+@app.template_filter('hour_sec')
+def hour_sec(seconds):
+    minutes, second = divmod(seconds, 60)
+    return f"{minutes}:{second}"
 
 
 @app.route('/')
@@ -32,16 +41,28 @@ def dota_self():
     return render_template('dota_self.html', title='DOTA stats', matches=self_recent_matches)
 
 @app.route('/dota/friends')
-def dota():
+def dota_friends():
     '''
         Displays the most recent games of your friends
     '''
 
     friends_matches = []
-    for friend in dota_friends.keys():
-        friends_matches.append(opendota_api.get_recent_matches(dota_friends[friend]))
+    for friend in dota_friends_dict.keys():
+        friends_matches.append(opendota_api.get_recent_matches(dota_friends_dict[friend]))
 
     return render_template('dota_friends.html', title='DOTA stats', friends_matches=friends_matches)
+
+@app.route('/dota/friends/expanded')
+def dota_friends_expanded():
+    '''
+        Displays the most recent games of your friends
+    '''
+
+    friends_matches = []
+    for friend in dota_friends_dict.keys():
+        friends_matches.append(opendota_api.get_recent_matches(dota_friends_dict[friend]))
+
+    return render_template('dota_friends_expanded.html', title='DOTA stats', friends_matches=friends_matches)
 
 @app.route('/fortnite')
 def fortnite():

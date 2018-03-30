@@ -1,4 +1,6 @@
-{% include "header.html" %}
+{% extends "header.html" %}
+
+{% block content %}
 <br>
 <table class="dota_match_table">
 <tr>
@@ -17,3 +19,5 @@
     {% endwith %}
 {% endfor %}
 </table>
+
+{% endblock %}

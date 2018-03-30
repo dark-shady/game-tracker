@@ -1,7 +1,9 @@
 import json
 import requests
+import time
+import inflect
 from urllib.parse import urljoin
-
+p = inflect.engine()
 
 class Opendota:
     def __init__(self):
@@ -19,14 +21,37 @@ class Opendota:
 
 
     def get_recent_matches(self, steam_id):
-        return (steam_id, self.get_personaname(steam_id),
+        return (steam_id, self.get_player_steam_details(steam_id),
                 self.make_request("players/{}/recentMatches".format(steam_id)))
 
-    def get_personaname(self, steam_id):
-        return self.make_request("players/{}".format(steam_id))['profile']['personaname']
+    def get_player_steam_details(self, steam_id):
+        request = self.make_request("players/{}".format(steam_id))
+        return {
+                'personaname': request['profile']['personaname'],
+                'avatarmedium': request['profile']['avatarmedium'],
+                'profileurl': request['profile']['profileurl']
+                }
 
-    def get_hero_icon(hero):
+    def get_hero_icon(self, hero):
         pass
+
+    def last_game_played(self, game_start, duration):
+        current_time = int(time.time())
+        time_since_played = current_time - game_start + duration
+        print("{} {} {} {}".format(time_since_played, current_time, game_start, duration))
+        if time_since_played < 3600:
+            return "less than an hour ago"
+        elif time_since_played < 86400:
+            hours_since_played = time_since_played // 3600
+            return f"{hours_since_played} {p.plural('hour', hours_since_played)} ago"
+        elif time_since_played < 2592000:
+            days_since_played = time_since_played // 86400
+            return f"{days_since_played} {p.plural('day', days_since_played)} ago"
+        elif time_since_played < 31536000:
+            months_since_played = time_since_played // 2592000
+            return f"{months_since_played} {p.plural('month', months_since_played)} ago"
+        else:
+            return "more than a year ago"
 
 '''
 https://dota2api.readthedocs.io/en/latest/responses.html#player-slot
