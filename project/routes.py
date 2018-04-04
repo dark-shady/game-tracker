@@ -21,7 +21,7 @@ app.add_template_global(opendota_api.last_game_played, name='last_game_played')
 @app.template_filter('hour_sec')
 def hour_sec(seconds):
     minutes, second = divmod(seconds, 60)
-    return f"{minutes}:{second}"
+    return f"{minutes}:{second:02d}"
 
 
 @app.route('/')
